@@ -3,11 +3,16 @@ package com.flora.safetynetalerts;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-public class SafetynetalertsApplication {
+import java.io.IOException;
 
-	public static void main(String[] args) {
+@SpringBootApplication
+public class SafetynetalertsApplication{
+
+	public static void main(String[] args) throws IOException {
 		SpringApplication.run(SafetynetalertsApplication.class, args);
 	}
 
 }
+
+
+

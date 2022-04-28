@@ -1,0 +1,320 @@
+{
+  "persons": [
+    {
+      "firstName": "Tim",
+      "lastName": "Buxam",
+      "email": "tbuxam0@jigsy.com",
+      "phone": "754-509-4052",
+      "birthday": "2001-08-08",
+      "addressId": 1,
+      "medicationsList" : [
+        "BENZONATATE"
+      ],
+      "allergiesList" : [
+        "ZOVIRAX"
+      ]
+    },
+    {
+      "firstName": "Cozmo",
+      "lastName": "Ilson",
+      "email": "cilson1@businessinsider.com",
+      "phone": "262-392-3256",
+      "birthday": "1994-09-12",
+      "addressId": 1,
+      "medicationsList" : [
+        "Omeprazole",
+        "Nizatidine"
+      ],
+      "allergiesList" : [
+        "Ketoconazole"
+      ]
+    },
+    {
+      "firstName": "Tamiko",
+      "lastName": "Loch",
+      "email": "tloch2@ehow.com",
+      "phone": "329-137-6302",
+      "birthday": "2002-02-26",
+      "addressId": 2,
+      "medicationsList" : [
+        "Ketoconazole",
+        "ZOVIRAX"
+      ],
+      "allergiesList" :  [
+        "BENZONATATE"
+      ]
+    }
+  ],
+  "firestations": [
+    {
+      "station": 1,
+      "addressList": [
+        {
+          "addressId": 1,
+          "address": "09338 Warner Trail",
+          "city": "Silongin",
+          "zip": "4315"
+        },
+        {
+          "addressId": 2,
+          "address": "046 Alpine Way",
+          "city": "Camias",
+          "zip": "2307"
+        },
+        {
+          "addressId": 3,
+          "address": "47565 4th Crossing",
+          "city": "Épernay",
+          "zip": "51209 CEDEX"
+        }
+      ]
+    },
+    {
+      "station": 2,
+      "addressList": [
+        {
+          "addressId": 8,
+          "address": "850 Kedzie Junction",
+          "city": "Paris 13",
+          "zip": "75706 CEDEX 13"
+        },
+        {
+          "addressId": 9,
+          "address": "14 Annamark Center",
+          "city": "Ban Lam Luk Ka",
+          "zip": "31120"
+        },
+        {
+          "addressId": 10,
+          "address": "6512 Hooker Drive",
+          "city": "Malinovskiy",
+          "zip": "628251"
+        },
+        {
+          "addressId": 11,
+          "address": "789 Anniversary Drive",
+          "city": "Yambol",
+          "zip": "8600"
+        }
+      ]
+    },
+    {
+      "station": 3,
+      "addressList": [
+        {
+          "addressId": 12,
+          "address": "96 Evergreen Park",
+          "city": "Kokubu-matsuki",
+          "zip": "584-0024"
+        },
+        {
+          "addressId": 13,
+          "address": "92517 Stoughton Pass",
+          "city": "Nogueira",
+          "zip": "4950-040"
+        },
+        {
+          "addressId": 14,
+          "address": "8 Milwaukee Hill",
+          "city": "Köping",
+          "zip": "731 27"
+        }
+      ]
+    },
+    {
+      "station": 4,
+      "addressList": [
+        {
+          "addressId": 15,
+          "address": "1 Victoria Street",
+          "city": "München",
+          "zip": "81373"
+        },
+        {
+          "addressId": 16,
+          "address": "154 Mallory Lane",
+          "city": "Kaeng Khoi",
+          "zip": "18110"
+        }
+      ]
+    },
+    {
+      "station": 5,
+      "addressList": [
+        {
+          "addressId": 17,
+          "address": "90182 Meadow Vale Terrace",
+          "city": "Pañgobilian",
+          "zip": "9217"
+        },
+        {
+          "addressId": 18,
+          "address": "2 Golden Leaf Center",
+          "city": "Zelenokumsk",
+          "zip": "357919"
+        }
+      ]
+    },
+    {
+      "station": 6,
+      "addressList": [
+        {
+          "addressId": 19,
+          "address": "94138 Ilene Plaza",
+          "city": "Nato",
+          "zip": "4421"
+        },
+        {
+          "addressId": 20,
+          "address": "42163 Park Meadow Trail",
+          "city": "Plato",
+          "zip": "475038"
+        }
+      ]
+    },
+    {
+      "station": 7,
+      "addressList": [
+        {
+          "addressId": 4,
+          "address": "4601 Luster Park",
+          "city": "Dinalongan",
+          "zip": "2903"
+        },
+        {
+          "addressId": 5,
+          "address": "8 Sutherland Circle",
+          "city": "Canauay",
+          "zip": "4214"
+        },
+        {
+          "addressId": 6,
+          "address": "6089 Crest Line Plaza",
+          "city": "Kil’mez’",
+          "zip": "613570"
+        },
+        {
+          "addressId": 7,
+          "address": "399 Bunting Crossing",
+          "city": "Ormož",
+          "zip": "2270"
+        }
+      ]
+    }
+  ],
+  "addresses": [
+    {
+      "address": "09338 Warner Trail",
+      "city": "Silongin",
+      "zip": "4315"
+    },
+    {
+      "address": "046 Alpine Way",
+      "city": "Camias",
+      "zip": "2307"
+    },
+    {
+      "address": "47565 4th Crossing",
+      "city": "Épernay",
+      "zip": "51209 CEDEX"
+    },
+    {
+      "address": "4601 Luster Park",
+      "city": "Dinalongan",
+      "zip": "2903"
+    },
+    {
+      "address": "8 Sutherland Circle",
+      "city": "Canauay",
+      "zip": "4214"
+    },
+    {
+      "address": "6089 Crest Line Plaza",
+      "city": "Kil’mez’",
+      "zip": "613570"
+    },
+    {
+      "address": "399 Bunting Crossing",
+      "city": "Ormož",
+      "zip": "2270"
+    },
+    {
+      "address": "850 Kedzie Junction",
+      "city": "Paris 13",
+      "zip": "75706 CEDEX 13"
+    },
+    {
+      "address": "14 Annamark Center",
+      "city": "Ban Lam Luk Ka",
+      "zip": "31120"
+    },
+    {
+      "address": "6512 Hooker Drive",
+      "city": "Malinovskiy",
+      "zip": "628251"
+    },
+    {
+      "address": "789 Anniversary Drive",
+      "city": "Yambol",
+      "zip": "8600"
+    },
+    {
+      "address": "96 Evergreen Park",
+      "city": "Kokubu-matsuki",
+      "zip": "584-0024"
+    },
+    {
+      "address": "92517 Stoughton Pass",
+      "city": "Nogueira",
+      "zip": "4950-040"
+    },
+    {
+      "address": "8 Milwaukee Hill",
+      "city": "Köping",
+      "zip": "731 27"
+    },
+    {
+      "address": "1 Victoria Street",
+      "city": "München",
+      "zip": "81373"
+    },
+    {
+      "address": "154 Mallory Lane",
+      "city": "Kaeng Khoi",
+      "zip": "18110"
+    },
+    {
+      "address": "90182 Meadow Vale Terrace",
+      "city": "Pañgobilian",
+      "zip": "9217"
+    },
+    {
+      "address": "2 Golden Leaf Center",
+      "city": "Zelenokumsk",
+      "zip": "357919"
+    },
+    {
+      "address": "94138 Ilene Plaza",
+      "city": "Nato",
+      "zip": "4421"
+    },
+    {
+      "address": "42163 Park Meadow Trail",
+      "city": "Plato",
+      "zip": "475038"
+    },
+    {
+      "address": "8 Loomis Street",
+      "city": "Orlando",
+      "zip": "32885"
+    }
+  ],
+  "roles": [
+      {
+        "label": "USER"
+      },
+      {
+        "label": "ADMIN"
+      }
+  ]
+}
