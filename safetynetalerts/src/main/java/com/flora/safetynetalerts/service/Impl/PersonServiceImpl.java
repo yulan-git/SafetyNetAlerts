@@ -1,10 +1,8 @@
 package com.flora.safetynetalerts.service.Impl;
 
 import com.flora.safetynetalerts.dto.PersonDto;
-import com.flora.safetynetalerts.entities.Address;
-import com.flora.safetynetalerts.entities.Person;
-import com.flora.safetynetalerts.entities.PersonId;
-import com.flora.safetynetalerts.entities.Role;
+import com.flora.safetynetalerts.entities.*;
+import com.flora.safetynetalerts.repository.AddressRepository;
 import com.flora.safetynetalerts.repository.PersonRepository;
 import com.flora.safetynetalerts.service.AddressService;
 import com.flora.safetynetalerts.service.PersonService;
@@ -24,6 +22,8 @@ public class PersonServiceImpl implements PersonService {
     private AddressService addressService;
     @Autowired
     private PersonRepository personRepository;
+    @Autowired
+    private AddressRepository addressRepository;
 
     @Override
     public List<Person> getPersonsByBirthday(String birthday) throws ParseException{
@@ -58,7 +58,7 @@ public class PersonServiceImpl implements PersonService {
         newPerson.setPersonId(personDto.toPersonId());
         newPerson.setFirstName(personDto.getFirstName());
         newPerson.setEmail(personDto.getEmail());
-        newPerson.setPassword(personDto.getPassword());
+        //newPerson.setPassword(personDto.getPassword());
         newPerson.setBirthday(personDto.getBirthday());
         newPerson.setMedicationsList(personDto.getMedicationsList());
         newPerson.setAllergiesList(personDto.getAllergiesList());
@@ -76,5 +76,19 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public void deletePerson(Long personId) {
 
+    }
+
+    @Override
+    public List<Person> getPersonListByAddress(Long addressId) {
+        List<Person> persons = personRepository.findAll();
+        List<Person> personList = new ArrayList<>();
+        Address currentAddress = addressRepository.findById(addressId).get();
+        for (Person person  : persons) {
+            Address address = person.getAddress();
+            if (address == currentAddress) {
+               personList.add(person);
+                }
+            }
+        return personList;
     }
 }

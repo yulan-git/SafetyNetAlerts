@@ -78,7 +78,7 @@ public class Generator implements CommandLineRunner {
                     a.get("email").toString(),
                     //a.get("phone").toString(),
                     date,
-                    a.get("password").toString(),
+                    //a.get("password").toString(),
                     medocList,
                     allergyList,
                     newAddress,

@@ -16,7 +16,7 @@ public class PersonDto {
     private String firstName;
     private Date birthday;
     private String email;
-    private String password;
+    //private String password;
     private Address address;
     private List<String> medicationsList;
     private List<String> allergiesList;

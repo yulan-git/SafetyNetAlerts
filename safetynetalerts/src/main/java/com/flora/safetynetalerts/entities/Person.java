@@ -32,9 +32,9 @@ public class Person {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthday;
 
-    @NotBlank
+/*    @NotBlank
     @Size(min = 2, max = 20)
-    private String password;
+    private String password;*/
 
     @ElementCollection(fetch = FetchType.LAZY)
     private List<String> medicationsList = new ArrayList<>();
@@ -43,15 +43,11 @@ public class Person {
     private List<String> allergiesList = new ArrayList<>();
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Address address;
-/*
-    @NotBlank
-    @JsonIgnore
-    private String password;*/
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Role role;
 
 }

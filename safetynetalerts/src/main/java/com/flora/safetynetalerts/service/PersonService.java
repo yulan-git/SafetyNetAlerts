@@ -15,4 +15,5 @@ public interface PersonService {
     Person createPerson(PersonDto person, Role role);
     Person updatePerson(Person personToUpdate);
     void deletePerson(Long personId);
+    List<Person> getPersonListByAddress(Long addressId);
 }

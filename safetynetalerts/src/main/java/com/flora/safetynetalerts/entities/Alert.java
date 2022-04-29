@@ -1,11 +1,13 @@
 package com.flora.safetynetalerts.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,11 +21,15 @@ public class Alert {
     private UUID uuid = UUID.randomUUID();
 
     @NotNull
-    private Date date;
+    private LocalDate date;
 
     @NotBlank
     @Size(min = 2, max = 250)
     private String description;
+
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Address address;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
@@ -33,9 +39,11 @@ public class Alert {
     @Column(length = 20)
     private StatusEnum status;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY)
     List<Person> personList = new ArrayList<>();
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     private Firestation firestation;
 
