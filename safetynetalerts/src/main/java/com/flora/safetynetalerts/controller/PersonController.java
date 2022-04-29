@@ -7,9 +7,13 @@ import com.flora.safetynetalerts.entities.Role;
 import com.flora.safetynetalerts.repository.RoleRepository;
 import com.flora.safetynetalerts.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -21,7 +25,7 @@ public class PersonController {
     private RoleRepository roleRepository;
 
     @GetMapping("")
-    public ResponseEntity<List<Person>> getPersons(@RequestParam(required = false) String birthday) {
+    public ResponseEntity<List<Person>> getPersons(@RequestParam(required = false) String birthday) throws ParseException {
         List<Person> persons;
         if (birthday != null)  {
             persons = personService.getPersonsByBirthday(birthday);

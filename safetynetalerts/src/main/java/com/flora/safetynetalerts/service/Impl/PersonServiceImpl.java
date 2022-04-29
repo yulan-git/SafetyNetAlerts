@@ -5,12 +5,15 @@ import com.flora.safetynetalerts.entities.Address;
 import com.flora.safetynetalerts.entities.Person;
 import com.flora.safetynetalerts.entities.PersonId;
 import com.flora.safetynetalerts.entities.Role;
-import com.flora.safetynetalerts.repository.AddressRepository;
 import com.flora.safetynetalerts.repository.PersonRepository;
 import com.flora.safetynetalerts.service.AddressService;
 import com.flora.safetynetalerts.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,8 +26,18 @@ public class PersonServiceImpl implements PersonService {
     private PersonRepository personRepository;
 
     @Override
-    public List<Person> getPersonsByBirthday(String birthday) {
-        return null;
+    public List<Person> getPersonsByBirthday(String birthday) throws ParseException{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        List<Person> persons = personRepository.findAll();
+        List<Person> personList = new ArrayList<>();
+        for (Person person: persons) {
+            Date currentBirthday = sdf.parse(birthday);
+            int result = currentBirthday.compareTo(person.getBirthday());
+            if(result==0){
+                personList.add(person);
+            }
+        }
+        return personList;
     }
 
     @Override
@@ -42,7 +55,7 @@ public class PersonServiceImpl implements PersonService {
     public Person createPerson(PersonDto personDto, Role role) {
         Person newPerson = new Person();
         Address address = addressService.getAddressById(personDto.getAddress());
-        newPerson.setPersonID(personDto.toPersonId());
+        newPerson.setPersonId(personDto.toPersonId());
         newPerson.setFirstName(personDto.getFirstName());
         newPerson.setEmail(personDto.getEmail());
         newPerson.setPassword(personDto.getPassword());

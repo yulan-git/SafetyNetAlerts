@@ -5,10 +5,11 @@ import com.flora.safetynetalerts.entities.Person;
 import com.flora.safetynetalerts.entities.PersonId;
 import com.flora.safetynetalerts.entities.Role;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface PersonService {
-    List<Person> getPersonsByBirthday(String birthday);
+    List<Person> getPersonsByBirthday(String birthday) throws ParseException;
     List<Person> getPersons();
     Person getPerson(PersonId personId);
     Person createPerson(PersonDto person, Role role);

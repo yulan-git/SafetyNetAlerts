@@ -1,5 +1,6 @@
 package com.flora.safetynetalerts.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
@@ -17,14 +18,7 @@ import java.util.*;
 @Entity
 public class Person {
     @EmbeddedId
-    private PersonId personID;
-    /*@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long personId;*/
-
-    /*@NotBlank
-    @Size(min = 2, max = 20)
-    private String lastName;*/
+    private PersonId personId;
 
     @NotBlank
     @Size(min = 2, max = 20)
@@ -34,11 +28,8 @@ public class Person {
     @Size(min = 2, max = 50)
     private String email;
 
-    /*@NotBlank
-    @Size(min = 2, max = 20)
-    private String phone;*/
-
     @NotNull
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthday;
 
     @NotBlank
