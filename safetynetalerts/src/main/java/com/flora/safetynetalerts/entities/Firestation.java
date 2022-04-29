@@ -18,4 +18,7 @@ public class Firestation {
         @OneToMany(fetch= FetchType.LAZY)
         private List<Address> addressList = new ArrayList<>();
 
+        @OneToMany(fetch= FetchType.LAZY)
+        private List<Alert> alertList = new ArrayList<>();
+
 }

@@ -7,6 +7,7 @@
       "phone": "754-509-4052",
       "birthday": "2001-08-08",
       "addressId": 1,
+      "password": "toto",
       "medicationsList" : [
         "BENZONATATE"
       ],
@@ -21,6 +22,7 @@
       "phone": "262-392-3256",
       "birthday": "1994-09-12",
       "addressId": 1,
+      "password": "toto",
       "medicationsList" : [
         "Omeprazole",
         "Nizatidine"
@@ -36,6 +38,7 @@
       "phone": "329-137-6302",
       "birthday": "2002-02-26",
       "addressId": 2,
+      "password": "toto",
       "medicationsList" : [
         "Ketoconazole",
         "ZOVIRAX"

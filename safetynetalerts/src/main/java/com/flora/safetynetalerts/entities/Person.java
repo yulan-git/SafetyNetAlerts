@@ -1,30 +1,30 @@
 package com.flora.safetynetalerts.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class Person {
-    /*@EmbeddedId
-    private PersonId personID;*/
-    @Id
+    @EmbeddedId
+    private PersonId personID;
+    /*@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long personId;
+    private Long personId;*/
 
-    @NotBlank
+    /*@NotBlank
     @Size(min = 2, max = 20)
-    private String lastName;
+    private String lastName;*/
 
     @NotBlank
     @Size(min = 2, max = 20)
@@ -34,13 +34,16 @@ public class Person {
     @Size(min = 2, max = 50)
     private String email;
 
-    @NotBlank
+    /*@NotBlank
     @Size(min = 2, max = 20)
-    private String phone;
+    private String phone;*/
+
+    @NotNull
+    private Date birthday;
 
     @NotBlank
     @Size(min = 2, max = 20)
-    private String birthday;
+    private String password;
 
     @ElementCollection(fetch = FetchType.LAZY)
     private List<String> medicationsList = new ArrayList<>();
@@ -48,16 +51,16 @@ public class Person {
     @ElementCollection(fetch = FetchType.LAZY)
     private List<String> allergiesList = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Address address;
 /*
     @NotBlank
     @JsonIgnore
     private String password;*/
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Role role;
 
- public Person(PersonId personId, String firstName, String email, String birthday,List<String> medicationsList,  List<String> allergiesList, Address newAddress, Role roleUser) {
- }
 }

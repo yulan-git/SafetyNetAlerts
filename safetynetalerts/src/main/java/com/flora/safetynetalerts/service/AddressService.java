@@ -8,4 +8,5 @@ public interface AddressService {
     Address createAddress(Address address);
     Address updateAddress(Address addressToUpdate);
     List<Address> getAddresses();
+    Address getAddressById(Address address);
 }

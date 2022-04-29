@@ -1,6 +1,10 @@
 package com.flora.safetynetalerts.controller;
 
+import com.flora.safetynetalerts.dto.PersonDto;
 import com.flora.safetynetalerts.entities.Person;
+import com.flora.safetynetalerts.entities.PersonId;
+import com.flora.safetynetalerts.entities.Role;
+import com.flora.safetynetalerts.repository.RoleRepository;
 import com.flora.safetynetalerts.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +16,9 @@ import java.util.List;
 @RequestMapping("person")
 public class PersonController {
     @Autowired
-    PersonService personService;
+    private PersonService personService;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @GetMapping("")
     public ResponseEntity<List<Person>> getPersons(@RequestParam(required = false) String birthday) {
@@ -25,15 +31,23 @@ public class PersonController {
         return ResponseEntity.ok(persons);
     }
 
-    @GetMapping("/{personId}")
-    public Person getPerson(@PathVariable("personId") Long personId) {
+    @GetMapping("/{lastname}/{phone}")
+    public Person getPerson(@PathVariable("lastname") String lastname, @PathVariable("phone") String phone) {
+        PersonId personId = new PersonId(lastname, phone);
         return personService.getPerson(personId);
     }
 
-    @PostMapping("")
-    public ResponseEntity<Person> createPerson(@RequestBody Person person) {
-            Person newPerson = personService.createPerson(person);
-            return new ResponseEntity<>(newPerson, HttpStatus.CREATED);
+    @PostMapping("/user")
+    public ResponseEntity<Person> createPerson(@RequestBody PersonDto personDto) {
+        Role role = roleRepository.getById(1);
+        Person newPerson = personService.createPerson(personDto, role);
+        return new ResponseEntity<>(newPerson, HttpStatus.CREATED);
+    }
+    @PostMapping("/admin")
+    public ResponseEntity<Person> createAdmin(@RequestBody PersonDto person) {
+        Role role = roleRepository.getById(2);
+        Person newPerson = personService.createPerson(person, role);
+        return new ResponseEntity<>(newPerson, HttpStatus.CREATED);
     }
 
     @PutMapping("/{personId}")
