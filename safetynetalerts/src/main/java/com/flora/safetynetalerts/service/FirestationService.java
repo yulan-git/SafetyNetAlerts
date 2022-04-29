@@ -9,9 +9,9 @@ import java.util.List;
 @Service
 public interface FirestationService {
     List<Firestation> getFirestations();
-    Firestation getFirestationByAddress(String address);
+    Firestation getFirestationByAddress(Long addressId);
     Firestation getFirestation(Long station);
     Firestation createFirestation(Firestation firestation);
-    Person updateFirestation(Person firestationToUpdate);
+    Firestation updateFirestation(Firestation firestationToUpdate);
     void deleteFirestation(Long station);
 }

@@ -137,8 +137,7 @@ public class Generator implements CommandLineRunner {
 
             Firestation fireStation = new Firestation(
                     station,
-                    addresses,
-                    null
+                    addresses
             );
             this.firestationRepository.save(fireStation);
         }

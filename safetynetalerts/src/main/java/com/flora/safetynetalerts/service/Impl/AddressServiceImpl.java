@@ -21,7 +21,10 @@ public class AddressServiceImpl implements AddressService {
     public Address createAddress(Address address) {
         List<Address> addressList = addressRepository.findAll();
         for (Address existingAddress: addressList) {
-            if(existingAddress.toString() != address.toString()){
+            if((existingAddress.getAddress() != address.getAddress())
+                    && (existingAddress.getCity() != address.getCity())
+                    && (existingAddress.getZip() != address.getZip()))
+            {
                 addressRepository.save(address);
             }else{
                 System.out.println("Cette adresse existe déjà !");

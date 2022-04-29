@@ -40,7 +40,6 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person createPerson(PersonDto personDto, Role role) {
-        System.out.println("personDTO -------------> " + personDto);
         Person newPerson = new Person();
         Address address = addressService.getAddressById(personDto.getAddress());
         newPerson.setPersonID(personDto.toPersonId());
@@ -52,7 +51,6 @@ public class PersonServiceImpl implements PersonService {
         newPerson.setAllergiesList(personDto.getAllergiesList());
         newPerson.setAddress(address);
         newPerson.setRole(role);
-        System.out.println("New person -------->" + newPerson);
         this.personRepository.save(newPerson);
         return newPerson;
     }

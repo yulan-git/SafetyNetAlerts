@@ -1,7 +1,9 @@
 package com.flora.safetynetalerts.controller;
 
+import com.flora.safetynetalerts.entities.Address;
 import com.flora.safetynetalerts.entities.Firestation;
 import com.flora.safetynetalerts.entities.Person;
+import com.flora.safetynetalerts.service.AddressService;
 import com.flora.safetynetalerts.service.FirestationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,8 @@ import java.util.List;
 public class FirestationController {
     @Autowired
     FirestationService firestationService;
+    @Autowired
+    AddressService addressService;
 
     @GetMapping("")
     public ResponseEntity<List<Firestation>> getFirestations() {
@@ -23,14 +27,15 @@ public class FirestationController {
         return ResponseEntity.ok(firestations);
     }
 
+    @GetMapping("/address")
+    public Firestation getFirestationByAddress(@RequestParam(required = false) Long addressId) {
+        Firestation firestation = firestationService.getFirestationByAddress(addressId);
+        return firestation;
+    }
+
     @GetMapping("/{station}")
-    public Firestation getFirestation(@PathVariable("station") Long station, @RequestParam(required = false) String address) {
-        Firestation firestation;
-        if (address != null)  {
-            firestation = firestationService.getFirestationByAddress(address);
-        } else {
-            firestation = firestationService.getFirestation(station);
-        }
+    public Firestation getFirestation(@PathVariable("station") Long station) {
+        Firestation firestation = firestationService.getFirestation(station);
         return firestation;
     }
 
@@ -41,8 +46,8 @@ public class FirestationController {
     }
 
     @PutMapping("/{station}")
-    public ResponseEntity<Person> updateFirestation(@PathVariable("station") Long station, @RequestBody Person firestationToUpdate){
-        Person updatedPerson = firestationService.updateFirestation(firestationToUpdate);
+    public ResponseEntity<Firestation> updateFirestation(@PathVariable("station") Long station, @RequestBody Firestation firestationToUpdate){
+        Firestation updatedPerson = firestationService.updateFirestation(firestationToUpdate);
         return new ResponseEntity<>(updatedPerson, HttpStatus.OK);
     }
 

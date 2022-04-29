@@ -36,4 +36,7 @@ public class Alert {
     @OneToMany(fetch = FetchType.LAZY)
     List<Person> personList = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Firestation firestation;
+
 }
