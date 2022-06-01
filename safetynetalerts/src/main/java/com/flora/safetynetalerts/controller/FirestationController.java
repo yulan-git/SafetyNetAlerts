@@ -20,6 +20,8 @@ public class FirestationController {
     @Autowired
     AddressService addressService;
 
+    private ResponseEntity responseEntity;
+
     @GetMapping("")
     public ResponseEntity<List<Firestation>> getFirestations() {
         List<Firestation> firestations;
@@ -52,8 +54,9 @@ public class FirestationController {
     }
 
     @DeleteMapping("/{station}")
-    public void deleteFirestationByStation(@PathVariable("station") Long station) {
+    public ResponseEntity<Firestation> deleteFirestationByStation(@PathVariable("station") Long station) {
         firestationService.deleteFirestation(station);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
 }

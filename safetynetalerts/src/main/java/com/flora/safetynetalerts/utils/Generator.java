@@ -1,24 +1,21 @@
 package com.flora.safetynetalerts.utils;
 
 import com.flora.safetynetalerts.entities.*;
-import com.flora.safetynetalerts.repository.AddressRepository;
-import com.flora.safetynetalerts.repository.FirestationRepository;
-import com.flora.safetynetalerts.repository.PersonRepository;
-import com.flora.safetynetalerts.repository.RoleRepository;
+import com.flora.safetynetalerts.repository.*;
 import com.jsoniter.JsonIterator;
 import com.jsoniter.any.Any;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.spec.OAEPParameterSpec;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
 
 @Component
 public class Generator implements CommandLineRunner {
@@ -31,6 +28,8 @@ public class Generator implements CommandLineRunner {
     AddressRepository addressRepository;
     @Autowired
     FirestationRepository firestationRepository;
+    @Autowired
+    AlertRepository alertRepository;
 
     public void generatePersons() throws IOException {
         String filePath = "src/main/resources/data.json";
@@ -48,9 +47,13 @@ public class Generator implements CommandLineRunner {
         Any firestationAny = any.get("firestations");
         generateFirestation(firestationAny);
 
+        /*Any alertAny = any.get("alerts");
+        generateAlert(alertAny);*/
+
         Any personAny = any.get("persons");
         personAny.forEach(a -> {
-            Address newAddress = addressRepository.getById(a.get("addressId").toLong());
+            Address newAddress = new Address();
+            newAddress.setAddressId(a.get("addressId").toLong());
 
             List<Any> medications = a.get("medicationsList").asList();
             List<String> medocList = new ArrayList<>();
@@ -63,6 +66,16 @@ public class Generator implements CommandLineRunner {
             for (Any allergy : allergies){
                 allergyList.add(allergy.toString());
             }
+
+          /*  List<Any> alerts = a.get("alertsList").asList();
+            List<Alert> alertsList = new ArrayList<>();
+            for (Any alert : alerts){
+                Alert newAlert = new Alert();
+                newAlert.setUuid(UUID.fromString(alert.get("uuid").toString()));
+                System.out.println("Alert --------> " + newAlert);
+                alertsList.add(newAlert);
+                System.out.println("AlertList --------> " + alertsList);
+            }*/
 
             PersonId personId = new PersonId(a.get("lastName").toString(), a.get("phone").toString());
             Date date = new Date();
@@ -142,6 +155,36 @@ public class Generator implements CommandLineRunner {
             this.firestationRepository.save(fireStation);
         }
     }
+
+/*    public void generateAlert(Any alerts) {
+        for (Any a : alerts) {
+            UUID uuid = UUID.fromString(a.get("uuid").toString());
+            String date = a.get("date").toString();
+            LocalDate localDate = LocalDate.parse(date);
+
+            String description = a.get("description").toString();
+            TypeEnum type = a.get("type").as(TypeEnum.class);
+            StatusEnum status = a.get("status").as(StatusEnum.class);
+            Long addressId = a.get("addressId").toLong();
+            //Optional<Address> address = addressRepository.findById(addressId);
+            Address address1 = new Address();
+            address1.setAddressId(addressId);
+            Firestation firestation = new Firestation();
+            firestation.setStation(a.get("station").toLong());
+
+            Alert alert = new Alert(
+                    uuid,
+                    localDate,
+                    description,
+                    address1,
+                    type,
+                    status,
+                    firestation,
+                    listPerson
+            );
+            this.alertRepository.save(alert);
+        }
+    }*/
 
     @Override
     public void run(String... args) throws Exception {

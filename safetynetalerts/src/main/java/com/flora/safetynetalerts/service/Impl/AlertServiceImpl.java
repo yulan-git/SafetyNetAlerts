@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -22,7 +23,12 @@ public class AlertServiceImpl implements AlertService {
 
     @Override
     public Alert updateAlert(Alert alertToUpdate) {
-        return alertRepository.save(alertToUpdate);
+        Optional<Alert> optionalAlert = alertRepository.findById(alertToUpdate.getUuid());
+        Alert updatedAlert = null;
+        if(optionalAlert.isPresent()) {
+            updatedAlert = alertRepository.save(alertToUpdate);
+        }
+        return updatedAlert;
     }
 
     @Override
@@ -39,9 +45,11 @@ public class AlertServiceImpl implements AlertService {
         newAlert.setFirestation(firestation);
         newAlert.setStatus(status);
         newAlert.setType(alert.getType());
-        newAlert.setPersonList(personList);
-
-        this.alertRepository.save(newAlert);
+        //newAlert.setPersonList(personList);
+        Optional<Alert> optionalAlert = alertRepository.findById(alert.getUuid());
+        if(!optionalAlert.isPresent()) {
+            this.alertRepository.save(newAlert);
+        }
         return newAlert;
     }
 
