@@ -36,6 +36,7 @@ public class UrlsServiceImpl implements UrlsService {
         Map<String, Object> childrenList = new HashMap<>();
         Address address = addressRepository.getById(addressId);
         List<Person> personByAddress = new ArrayList<>();
+        List<StringBuilder> infosChild = new ArrayList<>();
         for(Person person : personService.getPersons()){
             if(person.getAddress().equals(address)){
                 personByAddress.add(person);
@@ -50,16 +51,23 @@ public class UrlsServiceImpl implements UrlsService {
                 children.add(person);
             }
         }
+
+
         for (Person person : children){
-            if (dataUtils.getAge(person) <= 18){
+            if (dataUtils.getAge(person) <= 18) {
                 StringBuilder child = new StringBuilder();
-                child.append(person.getFirstName() + " " + person.getPersonId().getLastName() + " " +
-                        dataUtils.getAge(person) + " ans.");
-                childrenList.put("Enfant: ", child);
-            } else {
-                childrenList.put("Enfant: ", "Pas d'enfant");
+                child.append(" " + person.getFirstName() + " " + person.getPersonId().getLastName() + " " +
+                        dataUtils.getAge(person) + " ans");
+                infosChild.add(child);
             }
         }
+
+        if (infosChild.size() >0){
+            childrenList.put("enfant: ", infosChild);
+        } else{
+            childrenList.put("enfant: ", "Pas d'enfant à cette adresse");
+        }
+
         return childrenList;
     }
 

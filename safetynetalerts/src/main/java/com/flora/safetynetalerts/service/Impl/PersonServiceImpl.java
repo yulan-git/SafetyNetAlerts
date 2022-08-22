@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -52,18 +49,19 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person createPerson(PersonDto personDto, Role role) {
+    public Person createPerson(PersonDto personDto, Set<Role> role) {
         Person newPerson = new Person();
+        String newPassword = personDto.getPassword();
         Address address = addressService.getAddressById(personDto.getAddress());
         newPerson.setPersonId(personDto.toPersonId());
         newPerson.setFirstName(personDto.getFirstName());
         newPerson.setEmail(personDto.getEmail());
-        //newPerson.setPassword(personDto.getPassword());
+        newPerson.setPassword(personDto.getPassword());
         newPerson.setBirthday(personDto.getBirthday());
         newPerson.setMedicationsList(personDto.getMedicationsList());
         newPerson.setAllergiesList(personDto.getAllergiesList());
         newPerson.setAddress(address);
-        newPerson.setRole(role);
+        newPerson.setRoles(role);
         this.personRepository.save(newPerson);
         return newPerson;
     }

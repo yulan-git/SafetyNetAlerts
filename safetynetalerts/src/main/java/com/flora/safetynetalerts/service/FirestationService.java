@@ -11,7 +11,7 @@ public interface FirestationService {
     List<Firestation> getFirestations();
     Firestation getFirestationByAddress(Long addressId);
     Firestation getFirestation(Long station);
-    Firestation createFirestation(Firestation firestation);
+    Firestation createFirestation(Firestation firestation) throws Exception;
     Firestation updateFirestation(Firestation firestationToUpdate);
     void deleteFirestation(Long station);
 }

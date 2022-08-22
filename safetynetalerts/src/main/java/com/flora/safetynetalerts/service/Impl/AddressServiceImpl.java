@@ -1,11 +1,13 @@
 package com.flora.safetynetalerts.service.Impl;
 
 import com.flora.safetynetalerts.entities.Address;
+import com.flora.safetynetalerts.entities.Firestation;
 import com.flora.safetynetalerts.repository.AddressRepository;
 import com.flora.safetynetalerts.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AddressServiceImpl implements AddressService {
@@ -43,5 +45,11 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public Address getAddressById(Address address){
         return addressRepository.getById(address.getAddressId());
+    }
+
+    @Override
+    public Address getAddress(Long addressId) {
+        Optional<Address> address = addressRepository.findById(addressId);
+        return address.get();
     }
 }

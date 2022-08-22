@@ -1,0 +1,36 @@
+version: "3"
+services:
+  nginx:
+    volume:
+
+  mysqldb:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=TOTO
+      - MYSQL_USER=Flora
+      - MYSQL_PASSWORD=flora123
+    ports:
+      - "3306:3306"
+    restart: always
+
+  firestation:
+    image: firestation
+    environment:
+      - BDD_HOST=mysqldb
+      - BDD_NAME=TOTO
+      - BDD_USER=root
+      - BDD_PASSWORD=root
+    ports:
+      - 8082:8082
+    depends_on:
+      - mysqldb
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+
+

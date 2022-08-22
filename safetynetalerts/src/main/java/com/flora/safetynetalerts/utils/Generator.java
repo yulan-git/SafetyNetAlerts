@@ -5,13 +5,15 @@ import com.flora.safetynetalerts.repository.*;
 import com.jsoniter.JsonIterator;
 import com.jsoniter.any.Any;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
-import javax.crypto.spec.OAEPParameterSpec;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -31,15 +33,18 @@ public class Generator implements CommandLineRunner {
     @Autowired
     AlertRepository alertRepository;
 
+   /* @Value("classpath:data/data.json")
+    Resource resourceFile;*/
+
     public void generatePersons() throws IOException {
         String filePath = "src/main/resources/data.json";
-        byte[] bytesFile = Files.readAllBytes(new File(filePath).toPath());
+        byte[] bytesFile = Files.readAllBytes(Paths.get(filePath));
 
         JsonIterator iter = JsonIterator.parse(bytesFile);
         Any any = iter.readAny();
 
         Any roleAny = any.get("roles");
-        Role roleUser = generateRoles(roleAny);
+        Set<Role> roleUser = generateRoles(roleAny);
 
         Any addressAny = any.get("addresses");
         generateAddress(addressAny);
@@ -84,6 +89,7 @@ public class Generator implements CommandLineRunner {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+
             Person person = new Person(
                     personId,
                     //a.get("lastName").toString(),
@@ -91,7 +97,7 @@ public class Generator implements CommandLineRunner {
                     a.get("email").toString(),
                     //a.get("phone").toString(),
                     date,
-                    //a.get("password").toString(),
+                    a.get("password").toString(),
                     medocList,
                     allergyList,
                     newAddress,
@@ -116,21 +122,21 @@ public class Generator implements CommandLineRunner {
         }
     }
 
-    public Role generateRoles(Any roles) {
-        Role roleUser = null;
+    public Set<Role> generateRoles(Any roles) {
+        Set<Role> rolesUser = new HashSet<>();
         for (Any a : roles) {
-            String label = a.get("label").toString();
-            RoleEnum rolesPerson = label.equals("USER") ? RoleEnum.USER : RoleEnum.ADMIN;
+            String name = a.get("name").toString();
+            RoleEnum rolesPerson = name.equals("USER") ? RoleEnum.USER : RoleEnum.ADMIN;
             Role role = new Role(
                     null,
                     rolesPerson
             );
-            if (label.equals("USER")) {
-                roleUser = role;
+            if (name.equals("USER")) {
+                rolesUser.add(role);
             }
             this.roleRepository.save(role);
         };
-        return roleUser;
+        return rolesUser;
     };
 
     public void generateFirestation(Any firestations) {

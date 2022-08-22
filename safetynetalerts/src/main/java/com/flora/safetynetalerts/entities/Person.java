@@ -18,20 +18,17 @@ public class Person {
     private PersonId personId;
 
     @NotBlank
-    @Size(min = 2, max = 20)
     private String firstName;
 
     @NotBlank
-    @Size(min = 2, max = 50)
     private String email;
 
-    @NotNull
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthday;
 
-/*    @NotBlank
-    @Size(min = 2, max = 20)
-    private String password;*/
+    @NotBlank
+    @Size(max = 250)
+    private String password;
 
     @ElementCollection(fetch = FetchType.LAZY)
     private List<String> medicationsList = new ArrayList<>();
@@ -43,9 +40,8 @@ public class Person {
     @ManyToOne(fetch = FetchType.LAZY)
     private Address address;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Role role;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Role> roles = new HashSet<>();
 
   /*  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)

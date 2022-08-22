@@ -2,21 +2,31 @@ package com.flora.safetynetalerts.service.Impl;
 
 import com.flora.safetynetalerts.entities.Address;
 import com.flora.safetynetalerts.entities.Firestation;
+import com.flora.safetynetalerts.exceptions.exception.BusinessException;
+import com.flora.safetynetalerts.exceptions.exception.TechnicalException;
 import com.flora.safetynetalerts.repository.AddressRepository;
 import com.flora.safetynetalerts.repository.FirestationRepository;
 import com.flora.safetynetalerts.service.FirestationService;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class FirestationServiceImpl implements FirestationService {
-    @Autowired
+
+    @NonNull
     FirestationRepository firestationRepository;
-    @Autowired
+    @NonNull
     AddressRepository addressRepository;
 
     @Override
@@ -47,17 +57,33 @@ public class FirestationServiceImpl implements FirestationService {
     }
 
     @Override
-    public Firestation createFirestation(Firestation firestation) {
-        List<Address> addressList = new ArrayList<>();
-        Firestation newFireStation= new Firestation();
-        for (Address address : firestation.getAddressList()){
+    public Firestation createFirestation(Firestation firestation) throws TechnicalException, BusinessException {
+        try{
+            if (firestation == null){
+                throw new BusinessException("firestation is null");
+            }
+            if (firestation.getAddressList() == null || firestation.getAddressList().size() == 0){
+                throw new BusinessException("Minimum of one address required");
+            }
+            List<Address> addressList = new ArrayList<>();
+            Firestation newFireStation= new Firestation();
+        //Optional<List<Address>> currentAddressList = addressRepository.findAll();
+            for (Address address : firestation.getAddressList()){
             Address existingAddress = addressRepository.getById(address.getAddressId());
             addressList.add(existingAddress);
+            }
+            newFireStation.setStation(firestation.getStation());
+            newFireStation.setAddressList(addressList);
+            firestationRepository.save(newFireStation);
+            return newFireStation;
+        } catch (BusinessException e){
+            FirestationServiceImpl.log.warn(e.getMessage());
+            throw e;
         }
-        newFireStation.setStation(firestation.getStation());
-        newFireStation.setAddressList(addressList);
-        firestationRepository.save(newFireStation);
-        return newFireStation;
+        catch (Exception e){
+            FirestationServiceImpl.log.error(e.getMessage());
+            throw new TechnicalException(e.getMessage(), e.getCause());
+        }
     }
 
     @Override

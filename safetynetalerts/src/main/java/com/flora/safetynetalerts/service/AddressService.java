@@ -9,4 +9,5 @@ public interface AddressService {
     Address updateAddress(Address addressToUpdate);
     List<Address> getAddresses();
     Address getAddressById(Address address);
+    Address getAddress(Long addressId);
 }
