@@ -1,0 +1,30 @@
+<header class="fixed-top">
+    <span (click)="toggle()">
+        <!-- <div [ngIf]="open" [ngIfThen]="thenBlock" [ngIfElse]="elseBlock"></div> -->
+        <ng-container *ngIf="isNavOpen; then openState else closeState"></ng-container>
+    </span>
+    <ng-template #openState>
+        <ng-content select=".tr-btn-close"></ng-content>
+    </ng-template>
+    <ng-template #closeState>
+        <ng-content select=".tr-btn-open"></ng-content>
+    </ng-template>
+    <ng-content select=".tr-header"></ng-content>
+</header>
+<main [ngClass]="{'close-aside' : !isNavOpen}">
+    <div class="shadow position-fixed">
+    </div>
+    <aside>
+        <div class="scroller">
+            <ng-content select=".tr-nav"></ng-content>
+        </div>
+    </aside>
+    <div class="page">
+        <div class="contents">
+            <ng-content select=".tr-content"></ng-content>
+        </div>
+        <footer>
+            <ng-content select=".tr-footer"></ng-content>
+        </footer>
+    </div>
+</main>

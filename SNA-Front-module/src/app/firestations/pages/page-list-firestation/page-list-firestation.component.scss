@@ -1,0 +1,9 @@
+.station{
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+        color: var(--app-secondary);
+    }
+}

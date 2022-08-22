@@ -1,0 +1,11 @@
+.children{
+    text-decoration: underline;
+    color: var(--app-secondary);
+    cursor: pointer;
+}
+.child-list{
+    border: solid 1px white;
+    margin: 30px;
+    border-radius: 3px;
+    background-color: var(--app-secondary);
+}

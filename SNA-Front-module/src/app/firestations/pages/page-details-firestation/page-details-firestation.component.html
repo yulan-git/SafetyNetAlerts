@@ -1,0 +1,8 @@
+<div>
+    <ul class="list-group" *ngFor="let item of adressesList">
+        <li class="list-group-item">{{ item.address }}, {{ item.zip }}, {{ item.city }} - <span (click)="getChild(item.addressId)" class="children">Enfants à cette adresse 👨‍👩‍👧‍👦 ?</span></li>
+    </ul>
+</div>
+<div class="text-white text-center child-list" *ngFor="let enfant of enfants | keyvalue">
+    {{ enfant.value }}.
+</div>

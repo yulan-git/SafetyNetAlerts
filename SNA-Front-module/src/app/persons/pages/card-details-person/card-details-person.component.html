@@ -1,0 +1,21 @@
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">{{ person.personId.lastName }} {{ person.firstName }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ person.birthday }}</h6>
+        <p class="card-text">Email : {{person.email}}</p>
+        <p class="card-text">Tèl : {{person.personId.phone}}</p>
+        <p class="card-text">{{person.address.address}}, {{ person.address.zip }}, {{person.address.city}}</p>
+        <a class="card-link" (click)="toggleAll()">Allergies</a>
+        <div *ngIf="isShownAll">
+            <ul *ngFor="let item of person.allergiesList">
+                <li>{{ item }} </li>
+            </ul>
+        </div>
+        <a class="card-link" (click)="toggleMed()">Médicaments</a>
+        <div *ngIf="isShownMed">
+            <ul *ngFor="let item of person.medicationsList">
+                <li>{{ item }} </li>
+            </ul>
+        </div>
+    </div>
+</div>
